@@ -1,6 +1,6 @@
 import React,{useState} from "react";
 import Navbaar from "./Navbar";
-
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
     
@@ -11,7 +11,7 @@ const Login = () => {
     })
 
 
-//const navigate=useNavigate();
+const navigate=useNavigate();
 
 
 
@@ -39,7 +39,8 @@ const Login = () => {
             body: JSON.stringify({ email, password })
         });
         const data = await res.json();
-        // localStorage.setItem('token-info', JSON.stringify(data));
+
+        localStorage.setItem('token-info', JSON.stringify(data));
         
         console.log(data);
         if (res.status === 404 || !data.email) {
@@ -50,7 +51,7 @@ const Login = () => {
         }
         else {
 
-           // navigate("/home2")
+           navigate("/home")
             alert(" Login successful")
             console.log("login sucessfull")
         }

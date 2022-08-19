@@ -1,7 +1,7 @@
 const express = require("express");
 const abc = require("../models/userSchema");
 const router=express.Router();
-
+const jwt =require('jsonwebtoken');
 
 //////////register user data////////
 router.post("/register",async(req,res)=>{
@@ -40,17 +40,63 @@ const user = await abc.findOne(req.body);
 console.log(user)
 if(user)
 {    console.log(user.email);
-    //const token_payload = {email: user.email, password: user.password,age:user.age};
+    const token_payload = {name:user.name, email: user.email, password: user.password,age:user.age};
     
-    //let token = jwt.sign(token_payload, "jwt_secret_password", { expiresIn: '2h' });
-      //let response = {message: 'Token Created, Authentication Successful!', token: token, ...token_payload };
+    let token = jwt.sign(token_payload, "jwt_secret_password", { expiresIn: '2h' });
+      let response = {message: 'Token Created, Authentication Successful!', token: token, ...token_payload };
     
-    return res.status(201).json(user);
+     res.status(201).json(response);
+    console.log(response)
 }
 else{
     return res.json({result:"No User found"});}
 
 })
+
+////get data/////
+router.get("/getdata", async (req, res) => {
+   try{
+   
+    const userData= await abc.find();
+   
+        res.status(201).json(userData);
+        console.log(userData);
+   
+   }catch(error){
+   res.status(422).json("No data found")
+   };
+})
+
+/////get individual user/////////
+router.get("/getuser/:id",async(req,res)=>{
+       try{
+        const {id}= req.params;
+        const userid=await abc.findById({_id:id});
+        res.status(201).json(userid);
+        console.log(userid);
+
+    }catch(error){
+        res.status(422).json(error)
+        console.log("user not found")
+    }
+
+}
+)
+ /////////////navbaar
+ router.get("/navbaar",async(req,res)=>{
+    try{
+     const {id}= req.params;
+     const userid=await abc.findById({_id:id});
+     res.status(201).json(userid);
+     console.log(userid);
+
+ }catch(error){
+     res.status(422).json(error)
+     console.log("user not found")
+ }
+
+}
+)
 
 
 
