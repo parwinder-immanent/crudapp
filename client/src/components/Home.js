@@ -30,8 +30,46 @@ const Home = () => {
     useEffect(() => {
         getdata();
     }, [])
-//get single user
+//////////DELETE USER/////////
+const deleteuser = async (id) => {
+    const res2 = await fetch(`/deleteuser/${id}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        },
 
+    });
+    const deletedata = await res2.json();
+    //console.log(deletedata);
+    if (res2.status === 422 || !deletedata) {
+
+        console.log("error");
+    } else {
+        //console.log("Get Data")
+        getdata();
+    }
+}
+useEffect(() => {
+    getdata();
+}, [])
+//////search bar
+const searchHandle = async (event) => {
+
+    let key = event.target.value;
+    console.log(key)
+    if (key) {
+        let res2 = await fetch(`/search/${key}`);
+        res2 = await res2.json();
+        console.log(res2);
+        if (res2) {
+
+            setUserdata(res2)
+        } else {
+            console.log("hol")
+            getdata();
+        }
+    }
+}
     
 
 
@@ -44,7 +82,7 @@ const Home = () => {
             <h1 style={{ fontWeight: 400 }}>welcome </h1>
                 </div>
                 <div className="add_btn mt-2 mb-2">
-                    <NavLink to="/sign-up" className="btn btn-primary"> Add data</NavLink>
+                    <NavLink to="/registeradd" className="btn btn-primary"> Add data</NavLink>
                 </div>
                 <table class="table">
                     <thead>
@@ -56,8 +94,8 @@ const Home = () => {
                             <th scope="col">Password</th>
                             <th scope="col">
                                 <form className="d-flex" role="search">
-                                    <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"  />
-                                    <button className="btn btn-outline-success" type="submit" >Search</button>
+                                    <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"onChange={searchHandle}  />
+                                    <button className="btn btn-outline-success" type="submit" onSubmit={searchHandle} >Search</button>
                                 </form>
                             </th>
                         </tr>
@@ -76,7 +114,7 @@ const Home = () => {
                                             <td className="d-flex justify-content-between">
                                                 <NavLink to={`/read/${element._id}`}> <button className="btn btn-success">Read</button></NavLink>
                                                 <NavLink to={`/updateuser/${element._id}`}><button className="btn btn-primary">Update</button></NavLink>
-                                                <button className="btn btn-danger" >Delete</button>
+                                                <button className="btn btn-danger" onClick={() => deleteuser(element._id)}>Delete</button>
                                             </td>
                                         </tr>
 

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Navbaar2 from "./Navbaar2";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 
 const UpdateUser = () => {
     const { id } = useParams("");
@@ -50,18 +50,17 @@ const UpdateUser = () => {
         getdata();
     }, [])
 
-
+    const navigate=useNavigate();
     const updateuser = async (e) => {
         e.preventDefault();
         const { name, email, age, password } = inpval;
-
+            
         const res = await fetch(`/updateuser/${id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({
-                name, email, age, password
+            body: JSON.stringify({ name, email, age, password
             })
         });
 
@@ -71,6 +70,7 @@ const UpdateUser = () => {
             alert("error");
             console.log("error");
         } else {
+            navigate(`/read/${id}`)
             alert("Updation successfull")
             console.log("Update Data")
         }

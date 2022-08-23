@@ -3,6 +3,9 @@ import Card from "@mui/material/Card";
 import CardContent from '@mui/material/CardContent'
 import Navbaar2 from "./Navbaar2";
 import { useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 const Read = () => {
     const { id } = useParams("");
 
@@ -33,6 +36,27 @@ const Read = () => {
         getdata();
     },[])
 
+/////////////delelete
+//////////DELETE USER/////////
+const navigate=useNavigate();
+const deleteuser = async (id) => {
+    const res2 = await fetch(`/deleteuser/${id}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+    });
+    const deletedata = await res2.json();
+    //console.log(deletedata);
+    if (res2.status === 422 || !deletedata) {
+
+        console.log("error");
+    } else {
+        //console.log("Get Data")
+       navigate("/home")
+    }
+}
 
 
 
@@ -53,8 +77,8 @@ const Read = () => {
                     </div>
                     <div className="right_view col-lg-6 col-md-6 col-12">
                         <div className=".add_btn">
-                            <button className="btn btn-primary mx-2">Update</button>
-                            <button className="btn btn-danger" >Delete</button>
+                        <NavLink to={`/updateuser/${id}`}><button className="btn btn-primary mx-2">Update</button></NavLink>
+                            <button className="btn btn-danger" onClick={() => deleteuser(`${id}`)} >Delete</button>
                         </div>
                     </div>
                 </CardContent>

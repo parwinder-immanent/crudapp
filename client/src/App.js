@@ -7,6 +7,7 @@ import Login from './components/Login'
 import SignUp from './components/SignUp'
 import Home from './components/Home'
 import Read from './components/Read'
+import RegisterAdd from './components/RegisterAdd'
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
               <Route path="/home" element={<Home />} />
               <Route path="/read/:id" element={<Read />} />
               <Route path="/updateuser/:id" element={<UpdateUser />} />
+              <Route path="/registeradd" element={<RegisterAdd />} />
             </Routes>
           </div>
         </div>

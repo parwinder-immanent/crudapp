@@ -17,7 +17,7 @@ router.post("/register", async (req, res) => {
     try {
 
         const preuser = await abc.findOne({ email: email })
-        console.log(preuser)
+        //console.log(preuser)
         if (preuser) {
             res.status(422).json("User are already exist");
         }
@@ -43,7 +43,7 @@ router.post("/login", async (req, res) => {
         const isMatch = await bcrypt.compare(password, user.password);
         if (isMatch) {
             console.log(user.email);
-            const token_payload = { name: user.name, email: user.email, password: user.password, age: user.age };
+            const token_payload = { id:user._id,name: user.name, email: user.email, password: user.password, age: user.age };
 
             
             let token = jwt.sign(token_payload, "jwt_secret_password", { expiresIn: '2h' });
@@ -109,12 +109,17 @@ router.get("/navbaar", async (req, res) => {
 router.patch("/updateuser/:id", async (req, res) => {
     try {
         const { id } = req.params;
-        const updateUser = await abc.findByIdAndUpdate(id, req.body, {
-            new: true,
+           const updateUser = await abc.findByIdAndUpdate(id, req.body, {
+             new: true,
         });
-        
+    //     userdata = JSON.stringify({name:updateUser.name,email:updateUser.email});
+    //     result = JSON.parse(userdata)
+    //     console.log(result)
+    // let jar = localStorage.setItem("token-info",result);
+    //      console.log(jar)
      console.log("Data Update");
      res.status(201).json("Update Data Sucessful")
+    
     }
     catch (error) {
         console.log("Data not updated");
@@ -122,7 +127,32 @@ router.patch("/updateuser/:id", async (req, res) => {
     }
 
 })
+/////////////DELETE DATA USER///////////
+router.delete("/deleteuser/:id",async(req,res)=>{
+    try{
+    const {id}=req.params;
+    const result=await abc.findByIdAndDelete({_id:id})
+    console.log("deleted")
+    res.status(201).json("data delete")
+    }catch(error) {
+        res.status(422).json(error)
+    }
 
-
+}
+)
+////////search handle
+router.get("/search/:key",async (req,res)=>{
+    //console.log (req.params.key)
+    let data = await abc.find(
+        {
+            "$or":[
+                {"name":{$in:req.params.key}}
+            ]
+        }
+       
+    )
+    console.log(data)
+    res.send(data)
+})
 
 module.exports = router

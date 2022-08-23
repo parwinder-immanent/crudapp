@@ -1,7 +1,7 @@
 import React,{useState} from "react";
-import Navbaar from "./Navbar";
+import Navbaar2 from "./Navbaar2";
 import { useNavigate } from "react-router-dom";
-const SignUp = () => {
+const RegisterAdd = () => {
     
     const [inpval,setInp]=useState({
         name:"",
@@ -46,7 +46,7 @@ const SignUp = () => {
             alert("error");
             console.log("error");
         }else{
-            navigate("/")
+            navigate("/home")
             alert("data added")
             console.log("dataadded")
         }
@@ -57,7 +57,7 @@ const SignUp = () => {
 
     return (
         <form>
-            <Navbaar />
+            <Navbaar2 />
             <h3>Register</h3>
 
             <div className="form-group">
@@ -87,4 +87,4 @@ const SignUp = () => {
         </form>
     );
 }
-export default SignUp
+export default RegisterAdd
