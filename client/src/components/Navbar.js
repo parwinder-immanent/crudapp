@@ -2,7 +2,7 @@ import React from 'react'
 // import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 // import './App.css'
 
-
+/////edit the 
 //import { BrowserRouter as Link } from 'react-router-dom'
 const Navbaar = () => {
 
