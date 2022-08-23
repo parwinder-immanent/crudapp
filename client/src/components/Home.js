@@ -75,7 +75,7 @@ const Home = () => {
                                             <td>{element.password}</td>
                                             <td className="d-flex justify-content-between">
                                                 <NavLink to={`/read/${element._id}`}> <button className="btn btn-success">Read</button></NavLink>
-                                                <NavLink to={`/edit/${element._id}`}><button className="btn btn-primary">Update</button></NavLink>
+                                                <NavLink to={`/updateuser/${element._id}`}><button className="btn btn-primary">Update</button></NavLink>
                                                 <button className="btn btn-danger" >Delete</button>
                                             </td>
                                         </tr>

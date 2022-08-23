@@ -12,8 +12,11 @@ const Navbaar2 = () => {
 
     };
    
-     let result =localStorage.getItem(('token-info').name)
-    console.log(result);
+     let result = localStorage.getItem(('token-info'))
+     if (result !== null) {
+         result = JSON.parse(result)
+         console.log(result?.name);
+     }
     return (
 
         <nav className="navbar navbar-expand-lg navbar-light fixed-top">
@@ -32,6 +35,8 @@ const Navbaar2 = () => {
                     </ul>
 
                 </div>
+               
+                <h2>{result.name}</h2>
                 <button className="btn btn-primary" onClickCapture={logout}>logout </button>
             </div>
         </nav>
