@@ -32,6 +32,11 @@ const Navbaar2 = () => {
                                 Home
                             </a>
                         </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href={'/chat'}>
+                                Chatbox
+                            </a>
+                        </li>
                     </ul>
 
                 </div>

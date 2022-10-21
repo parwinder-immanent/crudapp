@@ -8,6 +8,8 @@ import SignUp from './components/SignUp'
 import Home from './components/Home'
 import Read from './components/Read'
 import RegisterAdd from './components/RegisterAdd'
+import ForgetPassword from './components/ForgetPassword'
+import ChatBox from './components/chatbox'
 
 function App() {
   return (
@@ -18,11 +20,13 @@ function App() {
         <div className="outer">
           <div className="inner">
             <Routes>
-              <Route exact path="/" element={<Login />} />
+            <Route path="/chat" element={<ChatBox />} />
+              <Route exact path="/" element={<Login />} />ChatBox
               <Route path="/sign-in" element={<Login />} />
               <Route path="/sign-up" element={<SignUp />} />
               <Route path="/home" element={<Home />} />
               <Route path="/read/:id" element={<Read />} />
+              <Route path="/forgetpassword" element={<ForgetPassword />} />
               <Route path="/updateuser/:id" element={<UpdateUser />} />
               <Route path="/registeradd" element={<RegisterAdd />} />
             </Routes>

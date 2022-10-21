@@ -69,7 +69,7 @@ const deleteuser = async (id) => {
             <Card sx={{ minWidth: 275 }}>
                 <CardContent>
                     <div className="left_view">
-                        <img src="../logo192.png" style={{ width: 100 }} alt="profile" />
+                        <img src={`/uploads/${getuserdata.image}`} style={{ width: 100}} alt="profile"/>
                         <h3 className="mt-3">Name: <span style={{ fontWeight: 400 }}>{getuserdata.name} </span></h3>
                         <h3 className="mt-3">Age: <span>{getuserdata.age} </span></h3>
                         <h3 className="mt-3"> Email:<span style={{ fontWeight: 400 }}>{getuserdata.email}</span></h3>

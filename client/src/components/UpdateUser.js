@@ -26,6 +26,7 @@ const UpdateUser = () => {
     ///get user detail
    
     console.log(id);
+    useEffect(() => {
     const getdata = async () => {
 
 
@@ -35,7 +36,7 @@ const UpdateUser = () => {
                 "Content-Type": "application/json"
             },
 
-        }, []);
+        });
         const data = await res.json();
         console.log(data);
         if (res.status === 422 || !data) {
@@ -46,9 +47,9 @@ const UpdateUser = () => {
             console.log("Get Data")
         }
     }
-    useEffect(() => {
+    
         getdata();
-    }, [])
+    },[])
 
     const navigate=useNavigate();
     const updateuser = async (e) => {
@@ -99,10 +100,10 @@ const UpdateUser = () => {
                 <input type="email" name="email" value={inpval.email} onChange={setData} className="form-control" placeholder="Enter email" />
             </div>
 
-            <div className="form-group">
+            {/* <div className="form-group">
                 <label>Password</label>
                 <input type="password" name="password" value={inpval.password} onChange={setData} className="form-control" placeholder="Enter password" />
-            </div>
+            </div> */}
 
             <button type="submit" onClick={updateuser} className="btn btn-dark btn-lg btn-block">update</button>
             {/* <p className="forgot-password text-right">

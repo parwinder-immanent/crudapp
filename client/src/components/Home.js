@@ -125,6 +125,7 @@ const searchHandle = async (event) => {
 
                     </tbody>
                 </table>
+                <div classname="msg1"> chat</div>
             </div>
         </div>
     );

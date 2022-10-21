@@ -21,6 +21,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         require: true
     },
+     
+    image: {
+        type: String,
+    },
 })
 
 //hashing passsword
@@ -33,6 +37,7 @@ userSchema.pre('save',async function(next) {
     }
     next();
 });
+
 
 
 const abc =new mongoose.model("abc",userSchema)

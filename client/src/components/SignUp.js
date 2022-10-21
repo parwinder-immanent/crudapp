@@ -7,7 +7,8 @@ const SignUp = () => {
         name:"",
         age:"",
         email:"",
-        password:""
+        password:"",
+        image:""
     })
 
 
@@ -25,20 +26,37 @@ const SignUp = () => {
             }
         })
     }
+
+    const handlephoto = (e) => {
+        // e.target.files FileList
+        console.log(e.target.files[0])
+        setInp({...inpval,image:e.target.files[0]})
+        // setINP((prevalue) => {
+        //     return {
+        //         ...prevalue, image: e.target.files[0] };
+       
+        //     })
+    }
+
+
+
+
     const navigate=useNavigate();
     const addinpdata =async(e)=>{
             e.preventDefault();
             const{name,email,age,password}=inpval;
 
-        const res =await fetch("/register",{
-            method:"POST",
-            headers:{
-                  "Content-Type":"application/json"  
-                    },
-                    body:JSON.stringify({
-                    name,email,age,password            
-                    })
-        });
+            const payload = new FormData();
+            payload.append('name',name);
+            payload.append('age', age);
+            payload.append('email',email);
+            payload.append('password',password);
+ 
+            payload.append('image',inpval.image,inpval.image.name);
+            const res = await fetch("/register", {
+                method: "POST",
+                body: payload
+            });
         
         const data =await res.json();
         console.log(data);
@@ -56,7 +74,7 @@ const SignUp = () => {
 
 
     return (
-        <form>
+        <form encType="multiple/form-data">
             <Navbaar />
             <h3>Register</h3>
 
@@ -79,6 +97,10 @@ const SignUp = () => {
                 <label>Password</label>
                 <input type="password" name="password" value={inpval.password}  onChange={setData} className="form-control" placeholder="Enter password" />
             </div>
+            <div className="form-group">
+                        <label className="form__label" for="firstName"> </label>
+                        <input className="form__input" name="image" type="file" id="image" accept=".jpg, .png, .jpeg" onChange={handlephoto} />
+                    </div>
 
             <button type="submit" onClick={addinpdata} className="btn btn-dark btn-lg btn-block">Register</button>
             {/* <p className="forgot-password text-right">

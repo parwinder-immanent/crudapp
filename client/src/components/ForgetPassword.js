@@ -2,7 +2,7 @@ import React,{useState} from "react";
 import Navbaar from "./Navbar";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const ForgetPassword = () => {
     
     const [inpval, setInp] = useState({
 
@@ -31,7 +31,7 @@ const navigate=useNavigate();
 
         const { email, password } = inpval;
         console.log(inpval)
-        const res = await fetch("/login", {
+        const res = await fetch("/resetpassword", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -40,27 +40,27 @@ const navigate=useNavigate();
         });
         const data = await res.json();
 
-        localStorage.setItem('token-info', JSON.stringify(data));
+        
         
         console.log(data);
-        if (res.status === 404 || !data.email) {
+        if (res.status === 404 || !data) {
 
             alert("error");
             console.log("error");
 
         }
         else {
-
-           navigate("/home")
-            alert(" Login successful")
-            console.log("login sucessfull")
+            alert(" Password reset successfull")
+           navigate("/")
+            
+            console.log("Password reset sucessfull")
         }
     }
     
         return (
             <form>
             <Navbaar />
-                <h3>Log in</h3>
+                <h3>Reset Password</h3>
 
                 <div className="form-group">
                     <label>Email</label>
@@ -79,11 +79,11 @@ const navigate=useNavigate();
                     </div>
                 </div> */}
 
-                <button type="submit" onClick={submitData} className="btn btn-dark btn-lg btn-block">Sign in</button>
-                <p className="forgot-password text-right">
-                <a href="/ForgetPassword "> Forgot password?</a>
-                </p>
+                <button type="submit" onClick={submitData} className="btn btn-dark btn-lg btn-block">Reset</button>
+                {/* <p className="forgot-password text-right">
+                <a href=" "> Forgot password?</a>
+                </p> */}
             </form>
         );
     }
-export default Login
+export default ForgetPassword
